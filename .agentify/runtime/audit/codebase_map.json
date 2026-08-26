@@ -1,0 +1,3634 @@
+{
+  "meta": {
+    "project_type": "TypeScript web framework and library",
+    "languages": [
+      "TypeScript",
+      "TSX"
+    ],
+    "frameworks": [
+      "Hono",
+      "Bun",
+      "Vitest",
+      "esbuild"
+    ],
+    "domain_hypothesis": "Fetch/Web Standards web framework with runtime adapters, middleware, routing, JSX rendering, typed client RPC, and static/SSG helpers",
+    "lifecycle": {
+      "sdlc_model": "GitHub Flow with pull-request review, required CI validation, and tag-based releases",
+      "issue_types": [
+        "bug_report",
+        "feature_request"
+      ],
+      "review_loop": {
+        "present": true,
+        "kind": "none"
+      },
+      "documentation_loop": {
+        "present": true,
+        "kind": "none"
+      },
+      "conditional_docs": {
+        "present": false,
+        "path": null,
+        "last_updated": null,
+        "entries_count": 0
+      },
+      "aiw_scripts": [],
+      "agent_definitions": {
+        "count": 0,
+        "paths": []
+      }
+    },
+    "documentation": {
+      "agents_md": null,
+      "agents_md_line_count": null,
+      "has_ai_docs": false,
+      "has_app_docs": false,
+      "has_specs": false,
+      "conditional_docs_path": null,
+      "readme_metrics": {
+        "present": true,
+        "line_count": 75,
+        "section_count": 8
+      },
+      "ai_docs_freshness": {
+        "last_updated": null,
+        "file_count": 0
+      },
+      "specs_archive": {
+        "present": false,
+        "file_count": 0,
+        "date_range": null
+      },
+      "postmortems_dir": null,
+      "changelog_present": false,
+      "authoritative_surfaces": [
+        "README.md",
+        "docs/CONTRIBUTING.md",
+        "docs/MIGRATION.md",
+        ".github/pull_request_template.md",
+        "package.json"
+      ]
+    },
+    "formats": [
+      "ES modules",
+      "CommonJS",
+      "JSX",
+      "JSON",
+      "Markdown",
+      "YAML"
+    ]
+  },
+  "skeleton": {
+    "top_level_tree": [
+      "README.md",
+      "package.json",
+      "src/",
+      "build/",
+      "runtime-tests/",
+      "benchmarks/",
+      "docs/",
+      "vitest.config.ts",
+      "tsconfig.json",
+      ".github/"
+    ],
+    "entry_points": [
+      {
+        "path": "src/hono.ts",
+        "role": "primary Hono framework entry implementation",
+        "language": "TypeScript",
+        "run_command": "import { Hono } from './src/hono.ts'"
+      },
+      {
+        "path": "build/build.ts",
+        "role": "package build and declaration/bundle orchestration",
+        "language": "TypeScript",
+        "run_command": "bun ./build/build.ts"
+      },
+      {
+        "path": "package.json",
+        "role": "package scripts and export surface",
+        "language": "JSON",
+        "run_command": "bun run build"
+      }
+    ],
+    "code_test_mirror": {
+      "observed": false,
+      "pattern": "unknown"
+    },
+    "first_5_files_for_fresh_agent": [
+      {
+        "path": "README.md",
+        "why": "project purpose, supported runtimes, contribution pointers"
+      },
+      {
+        "path": "package.json",
+        "why": "scripts, package exports, and release/build metadata"
+      },
+      {
+        "path": "src/hono.ts",
+        "why": "main framework implementation entry"
+      },
+      {
+        "path": "src/hono-base.ts",
+        "why": "core application behavior and shared base"
+      },
+      {
+        "path": "docs/CONTRIBUTING.md",
+        "why": "repository contribution and validation process"
+      }
+    ],
+    "app_vs_agentic_layer": {
+      "app_layer": "TypeScript Hono framework/library source and build/test tooling",
+      "agentic_layer": "none in the repository application layer",
+      "bleed_risk_paths": [
+        ".github/**",
+        "package.json"
+      ]
+    }
+  },
+  "module_graph": {
+    "edges": [
+      {
+        "from": "src/hono.ts",
+        "to": "src/hono-base.ts",
+        "kind": "import/extends"
+      },
+      {
+        "from": "src/hono.ts",
+        "to": "src/router/smart-router/index.ts",
+        "kind": "router selection"
+      },
+      {
+        "from": "src/hono-base.ts",
+        "to": "src/router.ts",
+        "kind": "Router contract"
+      },
+      {
+        "from": "src/hono-base.ts",
+        "to": "src/compose.ts",
+        "kind": "middleware dispatch"
+      },
+      {
+        "from": "src/context.ts",
+        "to": "src/request.ts",
+        "kind": "request state"
+      },
+      {
+        "from": "src/middleware/*/index.ts",
+        "to": "src/types.ts",
+        "kind": "handler contracts"
+      }
+    ],
+    "parallelizable_subtrees": [
+      [
+        "src/middleware",
+        "src/router",
+        "src/adapter",
+        "src/client",
+        "src/jsx",
+        "src/validator"
+      ]
+    ],
+    "shared_state": [
+      "src/context.ts per-request mutable Context passed through middleware",
+      "src/hono-base.ts routes and router instance",
+      "src/request/constants.ts GET_MATCH_RESULT match cache symbol"
+    ],
+    "client_server_split": null,
+    "shared_abstractions": [
+      "src/types.ts",
+      "src/context.ts",
+      "src/request.ts",
+      "src/compose.ts",
+      "src/router.ts"
+    ]
+  },
+  "type_contract_surface": {
+    "pydantic_models": [],
+    "typescript_interfaces": [
+      {
+        "path": "src/types.ts",
+        "name": "HandlerInterface",
+        "fields": [
+          "E",
+          "M",
+          "S",
+          "BasePath",
+          "CurrentPath",
+          "route registration overloads"
+        ]
+      }
+    ],
+    "db_models": [],
+    "idks": [],
+    "stable_types": [],
+    "volatile_types": [],
+    "one_type_trace": null,
+    "type_definitions": [
+      {
+        "path": "src/types.ts",
+        "name": "HandlerInterface",
+        "kind": "interface",
+        "language": "typescript",
+        "fields": [
+          "E",
+          "M",
+          "S",
+          "BasePath",
+          "CurrentPath",
+          "route registration overloads"
+        ]
+      }
+    ]
+  },
+  "conventions": {
+    "naming": {
+      "files": "kebab-case TypeScript files and directories; middleware/router variants use index.ts or router.ts with colocated *.test.ts",
+      "classes": "PascalCase",
+      "functions": "camelCase exported factories and functions; inner middleware functions are named after their factory",
+      "branches": "unknown",
+      "commits": "unknown"
+    },
+    "error_handling": {
+      "raise_vs_return": "raise",
+      "custom_exceptions": false,
+      "log_then_throw": false
+    },
+    "logging": {
+      "pattern": "No global logger; logger middleware accepts injected PrintFunc defaulting to console.log, uses -->/<--/xxx prefixes and status colors with NO_COLOR opt-out",
+      "observed": false
+    },
+    "state_passing": "constructor_injection",
+    "file_size": {
+      "observed_avg": 0,
+      "observed_max": 0
+    },
+    "patterns": []
+  },
+  "pitfalls": [
+    {
+      "module": "src/router/smart-router/router.ts",
+      "what": "On the first match, SmartRouter adds buffered routes to candidate routers and permanently binds the first router that does not signal UnsupportedPathError.",
+      "consequence": "Cold-start latency scales with route count and candidate routers; router ordering and the first request can determine the backend used for the lifetime of the instance.",
+      "source_reference": "src/router/smart-router/router.ts",
+      "line_ref": 29
+    },
+    {
+      "module": "src/router/reg-exp-router/matcher.ts",
+      "what": "The first match replaces the matcher and immediately performs matcher construction before returning the result.",
+      "consequence": "The first request pays hidden regex compilation and route-build work, which can dominate cold-start latency.",
+      "source_reference": "src/router/reg-exp-router/matcher.ts",
+      "line_ref": 8
+    },
+    {
+      "module": "src/router/smart-router/router.ts",
+      "what": "Post-freeze add/match failure paths use distinct public and opaque fatal errors.",
+      "consequence": "Adding routes after matcher construction is unsupported, and opaque fatal errors make diagnosis of unexpected router state difficult.",
+      "source_reference": "src/router/smart-router/router.ts",
+      "line_ref": 15,
+      "severity": "medium"
+    }
+  ],
+  "validation_surface": {
+    "test_command": "bun run test",
+    "test_runtime_seconds_estimate": 0,
+    "lint_command": "bun run lint",
+    "typecheck_command": "bun x tsc -p tsconfig.spec.json",
+    "e2e_command": "bun run test:all",
+    "spec_compliance_evidence": [],
+    "severity_taxonomy": [],
+    "per_change_type": {
+      "chore": {
+        "mandatory": [
+          "bun run format",
+          "bun run lint",
+          "bun run editorconfig-checker -format github-actions",
+          "bun run build",
+          "bun run test"
+        ],
+        "optional": []
+      },
+      "bug": {
+        "mandatory": [
+          "bun run format",
+          "bun run lint",
+          "bun run build",
+          "bun run test",
+          "bun run test:bun"
+        ],
+        "optional": []
+      },
+      "feature": {
+        "mandatory": [
+          "bun run format",
+          "bun run lint",
+          "bun run build",
+          "bun run test",
+          "bun run test:bun"
+        ],
+        "optional": []
+      }
+    },
+    "install_command": "bun install --frozen-lockfile",
+    "format_command": "bun run format",
+    "package_validation": [
+      "bun run build (postbuild runs publint)",
+      "bunx jsr publish --dry-run"
+    ]
+  },
+  "operational_surface": {
+    "build": {
+      "command": "bun run build",
+      "recipe_file": "unknown"
+    },
+    "run": {
+      "command": "No application server run command; this repository publishes a library consumed by importing the package.",
+      "env_vars_required": [],
+      "ports": [],
+      "services": [],
+      "dependencies": []
+    },
+    "deploy": null,
+    "env_vars": [],
+    "ci_cd": {
+      "triggers": [],
+      "gates": [],
+      "artifacts": []
+    },
+    "git_workflow": {
+      "main_branch": "main",
+      "branch_naming": "unknown",
+      "worktree_pattern": "unknown",
+      "cleanup": "unknown",
+      "integration_branch": "next"
+    },
+    "port_ranges": {
+      "dev": "unknown"
+    },
+    "shutdown_procedure": {
+      "script": null,
+      "commands": []
+    },
+    "spawned_subprocesses": []
+  },
+  "security_surface": {
+    "paths": {
+      "zero_access": [
+        ".env",
+        ".env.*.local",
+        "*.pem",
+        "**/secrets.*",
+        ".github/workflows/**",
+        "package.json",
+        "dist/**",
+        "coverage/**"
+      ],
+      "read_only": [
+        "src/**",
+        "docs/**",
+        ".github/workflows/**",
+        "README.md"
+      ],
+      "no_delete": [],
+      "fully_writable": []
+    },
+    "bash_safe_patterns": [],
+    "bash_blocked_patterns": [
+      "rm -rf",
+      "git push --force",
+      "git reset --hard",
+      "git clean -fd",
+      "chmod 777",
+      "sudo",
+      "npm publish",
+      "npm install -g"
+    ],
+    "banned_interpreters": [],
+    "env_allowlist": [
+      "PATH",
+      "HOME",
+      "PWD",
+      "LANG",
+      "LC_ALL",
+      "TZ",
+      "NODE_ENV"
+    ],
+    "production_credentials": [],
+    "damage_control_rules": [
+      "Do not update application source, dependencies, permissions, policies, runtime code, or workflows through automatic learning.",
+      "Keep CI permissions read-only except explicitly scoped release publishing identity.",
+      "Do not read dotenv files, PEM keys, or secrets.* paths."
+    ],
+    "security_checklist": {
+      "tools": [],
+      "commands": [],
+      "paths": [
+        ".env*",
+        "*.pem",
+        "**/secrets.*",
+        ".github/workflows/**",
+        "package.json",
+        "dist/**"
+      ],
+      "env": [],
+      "blocks": [
+        "application source update",
+        "dependency update",
+        "workflow update",
+        "permission expansion"
+      ],
+      "logs": [
+        "blocked destructive shell patterns",
+        "attempted secret-path access"
+      ]
+    }
+  },
+  "coverage": {
+    "D1_topography": {
+      "status": "covered",
+      "confidence": "high",
+      "evidence_summary": "Root inventory, README, and package metadata identify Hono as a TypeScript Web Standards framework with source under src, build tooling under build, runtime tests, and Bun/npm scripts.",
+      "evidence": [
+        {
+          "path": "README.md",
+          "excerpt": "Hono is a small, simple, and ultrafast web framework built on Web Standards.",
+          "kind": "positive"
+        },
+        {
+          "path": "package.json",
+          "excerpt": "\"type\": \"module\",",
+          "kind": "positive"
+        },
+        {
+          "path": "package.json",
+          "excerpt": "\"build\": \"bun run --shell bun remove-dist && bun ./build/build.ts && bun run copy:package.cjs.json\",",
+          "kind": "positive"
+        }
+      ]
+    },
+    "D2_module_boundaries": {
+      "status": "covered",
+      "confidence": "high",
+      "evidence_summary": "Core HonoBase dispatches through the Router contract into interchangeable SmartRouter/RegExpRouter/TrieRouter implementations, while Context and Request carry per-request state through compose and handlers.",
+      "evidence": [
+        {
+          "path": "src/hono.ts",
+          "excerpt": "this.router = options.router ?? new SmartRouter({ routers: [new RegExpRouter(), new TrieRouter()] })",
+          "kind": "positive"
+        },
+        {
+          "path": "src/hono-base.ts",
+          "excerpt": "const matchResult = this.router.match(method, path)",
+          "kind": "positive"
+        },
+        {
+          "path": "src/router.ts",
+          "excerpt": "export interface Router<T>",
+          "kind": "positive"
+        }
+      ]
+    },
+    "D3_type_contract": {
+      "status": "covered",
+      "confidence": "high",
+      "evidence_summary": "HandlerInterface is a real TypeScript interface defining route-registration overloads; HonoBase declares the typed methods, Hono inherits them, and type-level tests verify inference and schema accumulation.",
+      "evidence": [
+        {
+          "path": "src/types.ts",
+          "excerpt": "export interface HandlerInterface<",
+          "kind": "positive"
+        },
+        {
+          "path": "src/hono-base.ts",
+          "excerpt": "get!: HandlerInterface<E, 'get', S, BasePath, CurrentPath>",
+          "kind": "positive"
+        },
+        {
+          "path": "src/types.test.ts",
+          "excerpt": "describe('HandlerInterface')",
+          "kind": "positive"
+        }
+      ]
+    },
+    "D4_conventions": {
+      "status": "covered",
+      "confidence": "high",
+      "evidence_summary": "Source follows kebab-case files/directories, PascalCase classes, camelCase functions, and SCREAMING_SNAKE_CASE constants; middleware and routers use colocated tests, and errors distinguish HTTPException from programmer errors.",
+      "evidence": [
+        {
+          "path": "src/middleware/basic-auth/index.ts",
+          "excerpt": "export const basicAuth",
+          "kind": "positive"
+        },
+        {
+          "path": "src/middleware/logger/index.ts",
+          "excerpt": "export const logger = (fn: PrintFunc = console.log): MiddlewareHandler",
+          "kind": "positive"
+        },
+        {
+          "path": "src/router/common.case.test.ts",
+          "excerpt": "export const runTest",
+          "kind": "positive"
+        },
+        {
+          "path": "src/hono-base.ts",
+          "excerpt": "console.error(err)",
+          "kind": "positive"
+        }
+      ]
+    },
+    "D5_pitfalls": {
+      "status": "covered",
+      "confidence": "medium",
+      "evidence_summary": "Router selection and matcher construction have observable cold-start and freeze semantics: SmartRouter builds candidate routers during first match and permanently binds the first accepted implementation, so route order and first-request shape affect latency and behavior.",
+      "evidence": [
+        {
+          "path": "src/router/smart-router/router.ts",
+          "excerpt": "this.match = router.match.bind(router)",
+          "kind": "positive"
+        },
+        {
+          "path": "src/router/smart-router/router.ts",
+          "excerpt": "for (const route of this.#routes) { router.add(...route) }",
+          "kind": "positive"
+        },
+        {
+          "path": "src/router/reg-exp-router/matcher.ts",
+          "excerpt": "this.match = match",
+          "kind": "positive"
+        },
+        {
+          "path": "src/router/smart-router/router.test.ts",
+          "excerpt": "describe('SmartRouter'",
+          "kind": "positive"
+        }
+      ]
+    },
+    "D6_validation": {
+      "status": "covered",
+      "confidence": "high",
+      "evidence_summary": "Repository scripts and CI define frozen Bun install, formatting, lint, editorconfig, build, TypeScript-aware tests, runtime matrices, coverage, and package/JSR validation; CI requires the core checks on changes.",
+      "evidence": [
+        {
+          "path": "package.json",
+          "excerpt": "\"test\": \"tsc -p tsconfig.spec.json && vitest --run\"",
+          "kind": "positive"
+        },
+        {
+          "path": "package.json",
+          "excerpt": "\"lint\": \"eslint src runtime-tests build perf-measures benchmarks\"",
+          "kind": "positive"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "excerpt": "- run: bun run format",
+          "kind": "positive"
+        },
+        {
+          "path": "docs/CONTRIBUTING.md",
+          "excerpt": "Please ensure your PR passes tests with `bun run test`.",
+          "kind": "positive"
+        }
+      ]
+    },
+    "D7_operational": {
+      "status": "covered",
+      "confidence": "high",
+      "evidence_summary": "Hono is a library with no application server command; package metadata defines Bun install/build/watch and CI defines main/next integration plus tag release behavior.",
+      "evidence": [
+        {
+          "path": "package.json",
+          "excerpt": "\"build\": \"bun run --shell bun remove-dist && bun ./build/build.ts && bun run copy:package.cjs.json\"",
+          "kind": "positive"
+        },
+        {
+          "path": "package.json",
+          "excerpt": "\"watch\": \"bun run --shell bun remove-dist && bun ./build/build.ts --watch && bun run copy:package.cjs.json\"",
+          "kind": "positive"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "excerpt": "branches: [main, next]",
+          "kind": "positive"
+        }
+      ]
+    },
+    "D8_security": {
+      "status": "covered",
+      "confidence": "high",
+      "evidence_summary": "Tracked repository controls exclude dotenv/key material and CI is read-only; source security utilities provide constant-time comparison and traversal defenses.",
+      "evidence": [
+        {
+          "path": ".gitignore",
+          "excerpt": ".env.development.local",
+          "kind": "positive"
+        },
+        {
+          "path": "src/utils/buffer.ts",
+          "excerpt": "timingSafeEqual",
+          "kind": "positive"
+        },
+        {
+          "path": "src/middleware/serve-static/path.ts",
+          "excerpt": "defaultJoin",
+          "kind": "positive"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "excerpt": "permissions: contents: read",
+          "kind": "positive"
+        }
+      ]
+    },
+    "D9_process": {
+      "status": "covered",
+      "confidence": "high",
+      "evidence_summary": "Tracked issue templates, pull-request checklist, contribution guide, and CI document the repository lifecycle without relying on an agentic layer.",
+      "evidence": [
+        {
+          "path": ".github/ISSUE_TEMPLATE/1-bug-report.yml",
+          "excerpt": "name: 🐛 Bug Report",
+          "kind": "positive"
+        },
+        {
+          "path": ".github/ISSUE_TEMPLATE/2-feature-request.yml",
+          "excerpt": "name: 🚀 Feature Request",
+          "kind": "positive"
+        },
+        {
+          "path": ".github/pull_request_template.md",
+          "excerpt": "- [ ] Add tests",
+          "kind": "positive"
+        },
+        {
+          "path": "docs/CONTRIBUTING.md",
+          "excerpt": "Please ensure your PR passes tests with `bun run test`.",
+          "kind": "positive"
+        }
+      ]
+    },
+    "D10_documentation": {
+      "status": "covered",
+      "confidence": "high",
+      "evidence_summary": "README is the authoritative project overview with purpose, quick start, features, supported runtimes, contribution links, and release/community pointers; docs/CONTRIBUTING.md and docs/MIGRATION.md provide maintainer and compatibility guidance.",
+      "evidence": [
+        {
+          "path": "README.md",
+          "excerpt": "## Quick Start",
+          "kind": "positive"
+        },
+        {
+          "path": "README.md",
+          "excerpt": "## Features",
+          "kind": "positive"
+        },
+        {
+          "path": "README.md",
+          "excerpt": "## Contributing",
+          "kind": "positive"
+        },
+        {
+          "path": "docs/CONTRIBUTING.md",
+          "excerpt": "## Installing dependencies",
+          "kind": "positive"
+        },
+        {
+          "path": "docs/MIGRATION.md",
+          "excerpt": "## v4.3.11 to v4.4.0",
+          "kind": "positive"
+        }
+      ]
+    }
+  },
+  "open_questions": [
+    "Initial draft: gather repository evidence before closing coverage."
+  ],
+  "exploration_log": [
+    {
+      "ts": "2026-08-26T11:49:55.639Z",
+      "action": "draft_bootstrap",
+      "target": ".",
+      "observation": "Created an honest gap-marked map to receive incremental audit evidence."
+    },
+    {
+      "ts": "2026-08-26T11:50:11.145Z",
+      "action": "gap_filler_delta",
+      "target": "D1_topography",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T11:50:11.147Z",
+      "action": "gap_filler_delta",
+      "target": "D1_topography",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T11:52:26.511Z",
+      "action": "gap_filler_delta",
+      "target": "D2_module_boundaries",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T11:52:26.511Z",
+      "action": "gap_filler_delta",
+      "target": "D2_module_boundaries",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T11:52:38.423Z",
+      "action": "gap_filler_delta",
+      "target": "D3_type_contract",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T11:52:38.424Z",
+      "action": "gap_filler_delta",
+      "target": "D3_type_contract",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T11:52:50.795Z",
+      "action": "gap_filler_delta",
+      "target": "D3_type_contract",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T11:52:50.797Z",
+      "action": "gap_filler_delta",
+      "target": "D3_type_contract",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T11:56:07.750Z",
+      "action": "gap_filler_delta",
+      "target": "D4_conventions",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T11:56:07.751Z",
+      "action": "gap_filler_delta",
+      "target": "D4_conventions",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T11:59:01.293Z",
+      "action": "gap_filler_delta",
+      "target": "D6_validation",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T11:59:01.294Z",
+      "action": "gap_filler_delta",
+      "target": "D6_validation",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T11:59:15.504Z",
+      "action": "gap_filler_delta",
+      "target": "D7_operational",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T11:59:15.505Z",
+      "action": "gap_filler_delta",
+      "target": "D7_operational",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T11:59:24.855Z",
+      "action": "gap_filler_delta",
+      "target": "D7_operational",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T11:59:24.855Z",
+      "action": "gap_filler_delta",
+      "target": "D7_operational",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T12:03:01.435Z",
+      "action": "gap_filler_delta",
+      "target": "D5_pitfalls",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T12:03:01.436Z",
+      "action": "gap_filler_delta",
+      "target": "D5_pitfalls",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T12:03:19.346Z",
+      "action": "gap_filler_delta",
+      "target": "D8_security",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T12:03:19.347Z",
+      "action": "gap_filler_delta",
+      "target": "D8_security",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T12:03:39.572Z",
+      "action": "gap_filler_delta",
+      "target": "D9_process",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T12:03:39.573Z",
+      "action": "gap_filler_delta",
+      "target": "D9_process",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T12:03:53.620Z",
+      "action": "gap_filler_delta",
+      "target": "D9_process",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T12:03:53.621Z",
+      "action": "gap_filler_delta",
+      "target": "D9_process",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T12:04:07.957Z",
+      "action": "gap_filler_delta",
+      "target": "D10_documentation",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T12:04:07.958Z",
+      "action": "gap_filler_delta",
+      "target": "D10_documentation",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T13:07:49.207Z",
+      "action": "gap_filler_delta",
+      "target": "(no-dim)",
+      "observation": "merged delta from write_map_delta (strategy=shallow_overwrite)"
+    },
+    {
+      "ts": "2026-08-26T13:17:26.943Z",
+      "action": "gap_filler_delta",
+      "target": "(no-dim)",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T13:17:42.768Z",
+      "action": "gap_filler_delta",
+      "target": "(no-dim)",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T13:21:32.886Z",
+      "action": "gap_filler_delta",
+      "target": "(no-dim)",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T13:24:06.956Z",
+      "action": "gap_filler_delta",
+      "target": "(no-dim)",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T13:32:14.546Z",
+      "action": "gap_filler_delta",
+      "target": "(no-dim)",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T13:32:40.691Z",
+      "action": "gap_filler_delta",
+      "target": "(no-dim)",
+      "observation": "merged delta from write_map_delta (strategy=append)"
+    },
+    {
+      "ts": "2026-08-26T13:38:03.648Z",
+      "action": "gap_filler_delta",
+      "target": "(no-dim)",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T13:42:46.182Z",
+      "action": "gap_filler_delta",
+      "target": "(no-dim)",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T13:43:24.618Z",
+      "action": "gap_filler_delta",
+      "target": "(no-dim)",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T13:43:35.007Z",
+      "action": "gap_filler_delta",
+      "target": "(no-dim)",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T13:44:00.486Z",
+      "action": "gap_filler_delta",
+      "target": "(no-dim)",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    },
+    {
+      "ts": "2026-08-26T13:44:10.988Z",
+      "action": "gap_filler_delta",
+      "target": "(no-dim)",
+      "observation": "merged delta from write_map_delta (strategy=deep_merge)"
+    }
+  ],
+  "schema_version": "1",
+  "generated_at": "2026-08-26T11:49:55.639Z",
+  "concern_evidence": {
+    "concerns": [
+      {
+        "concern": "platform adapter integration",
+        "one_line": "Bridges runtime-specific events and capabilities into app.fetch and converts results for each platform.",
+        "covers": "Runtime adapters, static files, SSG, streaming, WebSocket, filesystem, and gateway conversion.",
+        "excludes": "Core routing, middleware composition, JSX semantics, and package build.",
+        "flows": [
+          {
+            "name": "runtime delegation",
+            "description": "Adapters provide capabilities to shared helpers.",
+            "steps": [
+              {
+                "path": "src/adapter/bun/server.ts",
+                "what_happens": "Gets the Bun server from Context bindings or env."
+              },
+              {
+                "path": "src/adapter/bun/ssg.ts",
+                "what_happens": "Maps Bun filesystem operations to SSG."
+              },
+              {
+                "path": "src/helper/ssg/ssg.ts",
+                "what_happens": "Generates route content and writes through FileSystemModule."
+              },
+              {
+                "path": "src/helper/streaming/stream.ts",
+                "what_happens": "Builds a Fetch streaming Response."
+              },
+              {
+                "path": "src/helper/streaming/sse.ts",
+                "what_happens": "Frames SSE messages and handles abort."
+              },
+              {
+                "path": "src/adapter/bun/server.test.ts",
+                "what_happens": "Tests Bun server shape."
+              },
+              {
+                "path": "src/helper/ssg/ssg.test.tsx",
+                "what_happens": "Tests generation and filesystem outcomes."
+              },
+              {
+                "path": "src/helper/streaming/sse.test.tsx",
+                "what_happens": "Tests framing and lifecycle."
+              }
+            ]
+          },
+          {
+            "name": "gateway conversion",
+            "description": "Gateway events become Fetch requests and platform results.",
+            "steps": [
+              {
+                "path": "src/adapter/aws-lambda/handler.ts",
+                "what_happens": "Classifies events and serializes app.fetch results."
+              },
+              {
+                "path": "src/hono-base.ts",
+                "what_happens": "Runs the shared Fetch lifecycle."
+              },
+              {
+                "path": "src/adapter/lambda-edge/handler.ts",
+                "what_happens": "Converts CloudFront events and callbacks."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/adapter/bun/server.ts",
+            "symbol": "getBunServer",
+            "role": "Bun server lookup.",
+            "line_range": [
+              1,
+              20
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/adapter/bun/serve-static.ts",
+            "symbol": "serveStatic",
+            "role": "Bun static adapter.",
+            "line_range": [
+              1,
+              40
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/adapter/bun/ssg.ts",
+            "symbol": "bunFileSystemModule,toSSG",
+            "role": "Bun SSG adapter.",
+            "line_range": [
+              1,
+              45
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/helper/ssg/plugins.ts",
+            "symbol": "defaultPlugin,redirectPlugin",
+            "role": "SSG plugins.",
+            "line_range": [
+              1,
+              90
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/helper/ssg/plugins.test.tsx",
+            "symbol": "plugin tests",
+            "role": "SSG plugin tests.",
+            "line_range": [
+              1,
+              260
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/helper/ssg/ssg.ts",
+            "symbol": "fetchRoutesContent,saveContentToFile,toSSG",
+            "role": "SSG core.",
+            "line_range": [
+              1,
+              470
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/helper/ssg/ssg.test.tsx",
+            "symbol": "toSSG tests",
+            "role": "SSG tests.",
+            "line_range": [
+              1,
+              1200
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/helper/streaming/stream.ts",
+            "symbol": "stream",
+            "role": "Streaming response.",
+            "line_range": [
+              1,
+              55
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/helper/streaming/stream.test.ts",
+            "symbol": "stream tests",
+            "role": "Streaming tests.",
+            "line_range": [
+              1,
+              130
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/helper/streaming/sse.ts",
+            "symbol": "streamSSE",
+            "role": "SSE adapter.",
+            "line_range": [
+              1,
+              90
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/helper/streaming/sse.test.tsx",
+            "symbol": "streamSSE tests",
+            "role": "SSE tests.",
+            "line_range": [
+              1,
+              300
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/helper/streaming/text.ts",
+            "symbol": "streamText",
+            "role": "Text stream adapter.",
+            "line_range": [
+              1,
+              30
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/helper/streaming/text.test.ts",
+            "symbol": "streamText tests",
+            "role": "Text stream tests.",
+            "line_range": [
+              1,
+              60
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/utils/filepath.ts",
+            "symbol": "getFilePath,getFilePathWithoutDefaultDocument",
+            "role": "Portable output path handling.",
+            "line_range": [
+              1,
+              70
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/adapter/aws-lambda/handler.ts",
+            "symbol": "handle,streamHandle",
+            "role": "Lambda conversion.",
+            "line_range": [
+              138,
+              672
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/adapter/lambda-edge/handler.ts",
+            "symbol": "handle,createRequest,createResult",
+            "role": "Lambda@Edge conversion.",
+            "line_range": [
+              116,
+              214
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "Adapters converge on app.fetch(request,env,executionCtx).",
+            "why": "Core remains Fetch-standard.",
+            "reference": "src/hono-base.ts"
+          },
+          {
+            "rule": "SSG checks output containment before writes.",
+            "why": "Route parameters cannot escape output.",
+            "reference": "src/helper/ssg/ssg.ts"
+          },
+          {
+            "rule": "Streaming producers close or abort.",
+            "why": "Responses need terminal state.",
+            "reference": "src/helper/streaming/stream.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Omitting execution context or filesystem capability.",
+            "consequence": "waitUntil, static, or SSG output fails.",
+            "reference": "src/adapter/service-worker/handler.ts"
+          },
+          {
+            "risk": "Using unnormalized SSG paths.",
+            "consequence": "Output can escape its root.",
+            "reference": "src/helper/ssg/ssg.ts"
+          }
+        ],
+        "entry_questions": [
+          "Which runtime event shape applies?",
+          "Are filesystem, path, stream, binary, cookie, and execution-context rules preserved?"
+        ],
+        "validation": [
+          "bun run test -- src/adapter/bun/server.test.ts src/helper/ssg src/helper/streaming",
+          "bun run test:bun",
+          "bun run test:deno",
+          "bun run test:lambda"
+        ],
+        "spans_subtrees": [
+          "src/adapter",
+          "src/helper/ssg",
+          "src/helper/streaming",
+          "src/utils/filepath.ts"
+        ],
+        "stability": "high",
+        "recurrence": "high",
+        "confidence": "high",
+        "last_updated": "2026-08-26T15:00:00.000Z"
+      },
+      {
+        "concern": "request lifecycle and middleware composition",
+        "one_line": "Carries Requests through matching, handler composition, Context response state, error handling, and final Response return.",
+        "covers": "HonoBase dispatch, compose/next, Context, HonoRequest, HTTPException, finalization, routeIndex, and combinators.",
+        "excludes": "Router choice, security policy, JSX rendering, client RPC, and platform conversion.",
+        "flows": [
+          {
+            "name": "dispatch",
+            "description": "A request is composed and finalized.",
+            "steps": [
+              {
+                "path": "src/hono-base.ts",
+                "what_happens": "Matches and dispatches the request."
+              },
+              {
+                "path": "src/compose.ts",
+                "what_happens": "Runs handlers, next, routeIndex, and error/not-found paths."
+              },
+              {
+                "path": "src/context.ts",
+                "what_happens": "Builds the Response."
+              },
+              {
+                "path": "src/http-exception.ts",
+                "what_happens": "Carries status, response, message, and cause."
+              },
+              {
+                "path": "src/compose.test.ts",
+                "what_happens": "Tests requests, responses, errors, not-found, and next guards."
+              },
+              {
+                "path": "src/http-exception.test.ts",
+                "what_happens": "Tests response/status precedence and cause."
+              },
+              {
+                "path": "src/hono-base.ts",
+                "what_happens": "Returns the finalized response."
+              }
+            ]
+          },
+          {
+            "name": "nested composition",
+            "description": "Combinators wrap and restore lifecycle state.",
+            "steps": [
+              {
+                "path": "src/middleware/combine/index.ts",
+                "what_happens": "Builds some/every/except chains."
+              },
+              {
+                "path": "src/middleware/combine/index.test.ts",
+                "what_happens": "Tests short-circuit and routeIndex."
+              },
+              {
+                "path": "src/hono-base.ts",
+                "what_happens": "Executes the outer handler."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/hono-base.ts",
+            "symbol": "fetch,#dispatch",
+            "role": "Dispatch core.",
+            "line_range": [
+              109,
+              599
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/compose.ts",
+            "symbol": "compose",
+            "role": "Composition core.",
+            "line_range": [
+              15,
+              75
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/compose.test.ts",
+            "symbol": "compose tests",
+            "role": "Composition tests.",
+            "line_range": [
+              1,
+              520
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/context.ts",
+            "symbol": "Context,res",
+            "role": "Response state.",
+            "line_range": [
+              188,
+              597
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/request.ts",
+            "symbol": "HonoRequest",
+            "role": "Request state.",
+            "line_range": [
+              62,
+              444
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/http-exception.ts",
+            "symbol": "HTTPException",
+            "role": "Error boundary.",
+            "line_range": [
+              40,
+              75
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/http-exception.test.ts",
+            "symbol": "HTTPException tests",
+            "role": "Exception tests.",
+            "line_range": [
+              1,
+              45
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/middleware/combine/index.ts",
+            "symbol": "some,every,except",
+            "role": "Nested composition.",
+            "line_range": [
+              25,
+              121
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/middleware/combine/index.test.ts",
+            "symbol": "combine tests",
+            "role": "Combinator tests.",
+            "line_range": [
+              1,
+              246
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "next is awaited at most once.",
+            "why": "compose prevents re-entry.",
+            "reference": "src/compose.ts"
+          },
+          {
+            "rule": "Composed dispatch finalizes Context.",
+            "why": "A response must exist.",
+            "reference": "src/hono-base.ts"
+          },
+          {
+            "rule": "HTTPException status overrides optional response status.",
+            "why": "Error policy is explicit.",
+            "reference": "src/http-exception.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Calling next twice.",
+            "consequence": "Request fails through error handling.",
+            "reference": "src/compose.ts"
+          },
+          {
+            "risk": "Returning undefined without next.",
+            "consequence": "Context remains unfinalized.",
+            "reference": "src/hono-base.ts"
+          }
+        ],
+        "entry_questions": [
+          "Does code return, set c.res, or await next?",
+          "Does it alter routeIndex or error handling?"
+        ],
+        "validation": [
+          "bun run test -- src/compose.test.ts src/http-exception.test.ts src/hono.test.ts",
+          "bun run test -- src/middleware/combine/index.test.ts"
+        ],
+        "spans_subtrees": [
+          "src/hono-base.ts",
+          "src/compose.ts",
+          "src/context.ts",
+          "src/request.ts",
+          "src/http-exception.ts",
+          "src/middleware/combine"
+        ],
+        "stability": "high",
+        "recurrence": "high",
+        "confidence": "high",
+        "last_updated": "2026-08-26T15:00:00.000Z"
+      },
+      {
+        "concern": "route matching and router selection",
+        "one_line": "Selects and freezes a compatible router, registers patterns, and turns paths into ordered matches and parameters.",
+        "covers": "Router contract, SmartRouter fallback/freeze, RegExp/Trie/Linear/Pattern matching, presets, prepared matchers, and Result consumers.",
+        "excludes": "Middleware execution, finalization, adapters, and general request extraction.",
+        "flows": [
+          {
+            "name": "selection",
+            "description": "Application setup selects a router.",
+            "steps": [
+              {
+                "path": "src/hono.ts",
+                "what_happens": "Installs SmartRouter with RegExpRouter then TrieRouter."
+              },
+              {
+                "path": "src/hono-base.ts",
+                "what_happens": "Stores the Router contract."
+              },
+              {
+                "path": "src/preset/quick.ts",
+                "what_happens": "Selects quick preset routers."
+              }
+            ]
+          },
+          {
+            "name": "matching",
+            "description": "Registered routes become matches and parameters.",
+            "steps": [
+              {
+                "path": "src/hono-base.ts",
+                "what_happens": "Adds routes and calls match."
+              },
+              {
+                "path": "src/router/smart-router/router.ts",
+                "what_happens": "Probes and freezes the first compatible router."
+              },
+              {
+                "path": "src/request.ts",
+                "what_happens": "Decodes Result parameters."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/router.ts",
+            "symbol": "Router,Result",
+            "role": "Router contract.",
+            "line_range": [
+              9,
+              103
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/hono-base.ts",
+            "symbol": "#addRoute,#dispatch",
+            "role": "Registration/consumption.",
+            "line_range": [
+              117,
+              460
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/hono.ts",
+            "symbol": "Hono",
+            "role": "Default selection.",
+            "line_range": [
+              20,
+              33
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/router/smart-router/router.ts",
+            "symbol": "SmartRouter",
+            "role": "Fallback/freeze.",
+            "line_range": [
+              1,
+              69
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/router/reg-exp-router/router.ts",
+            "symbol": "RegExpRouter",
+            "role": "Regex matching.",
+            "line_range": [
+              1,
+              169
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/router/trie-router/node.ts",
+            "symbol": "Node.insert,Node.search",
+            "role": "Trie matching.",
+            "line_range": [
+              1,
+              200
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/router/common.case.test.ts",
+            "symbol": "runTest",
+            "role": "Router tests.",
+            "line_range": [
+              1,
+              730
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "Default order is SmartRouter(RegExpRouter,TrieRouter).",
+            "why": "Order controls syntax/performance.",
+            "reference": "src/hono.ts"
+          },
+          {
+            "rule": "SmartRouter binds first compatible router.",
+            "why": "First match fixes implementation.",
+            "reference": "src/router/smart-router/router.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Adding routes after first match.",
+            "consequence": "Routes can be omitted.",
+            "reference": "src/router/smart-router/router.ts"
+          }
+        ],
+        "entry_questions": [
+          "Which router/preset applies?",
+          "Are routes registered before first match?"
+        ],
+        "validation": [
+          "bun run test -- src/router",
+          "bun run test -- src/hono.test.ts"
+        ],
+        "spans_subtrees": [
+          "src/router",
+          "src/hono-base.ts",
+          "src/hono.ts",
+          "src/preset"
+        ],
+        "stability": "high",
+        "recurrence": "high",
+        "confidence": "high",
+        "last_updated": "2026-08-26T14:00:00.000Z"
+      },
+      {
+        "concern": "security middleware and request protection",
+        "one_line": "Owns credential/token verification, browser policy, IP restriction, and the cryptographic helpers those boundaries rely on.",
+        "covers": "Basic/Bearer/JWT/JWK, constant-time comparison, hashing, encoding, CORS/CSRF, secure headers, cookies, IP parsing/restriction, and auth runtime checks.",
+        "excludes": "General composition, route matching, client construction, unrelated parsing, and package build.",
+        "flows": [
+          {
+            "name": "authentication",
+            "description": "Tokens are extracted, encoded, verified, and challenged.",
+            "steps": [
+              {
+                "path": "src/middleware/jwt/jwt.ts",
+                "what_happens": "Extracts bearer/cookie tokens and emits HTTPException challenges."
+              },
+              {
+                "path": "src/utils/encode.ts",
+                "what_happens": "Encodes token parts as base64url."
+              },
+              {
+                "path": "src/utils/jwt/jwa.ts",
+                "what_happens": "Defines JOSE algorithm families."
+              },
+              {
+                "path": "src/utils/jwt/jwt.ts",
+                "what_happens": "Validates claims, algorithms, kids, keys, and signatures."
+              },
+              {
+                "path": "src/utils/jwt/jwa.test.ts",
+                "what_happens": "Tests algorithm contracts."
+              },
+              {
+                "path": "src/utils/jwt/jwt.test.ts",
+                "what_happens": "Tests claims, signatures, JWKS, and confusion rejection."
+              },
+              {
+                "path": "src/utils/crypto.ts",
+                "what_happens": "Provides portable digest primitives."
+              },
+              {
+                "path": "src/utils/crypto.test.ts",
+                "what_happens": "Tests text, Unicode, objects, buffers, and runtime support."
+              }
+            ]
+          },
+          {
+            "name": "browser/network protection",
+            "description": "Browser and address policy gates requests.",
+            "steps": [
+              {
+                "path": "src/middleware/cors/index.ts",
+                "what_happens": "Writes origin and preflight policy."
+              },
+              {
+                "path": "src/middleware/csrf/index.ts",
+                "what_happens": "Rejects unsafe cross-site forms."
+              },
+              {
+                "path": "src/middleware/secure-headers/secure-headers.ts",
+                "what_happens": "Adds nonce and hardening headers."
+              },
+              {
+                "path": "src/middleware/ip-restriction/index.ts",
+                "what_happens": "Matches allow/deny rules."
+              },
+              {
+                "path": "src/utils/ipaddr.ts",
+                "what_happens": "Canonicalizes IPv4/IPv6 values."
+              },
+              {
+                "path": "src/utils/ipaddr.test.ts",
+                "what_happens": "Tests address forms and round trips."
+              },
+              {
+                "path": "src/middleware/ip-restriction/index.test.ts",
+                "what_happens": "Tests policy and fail-closed behavior."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/middleware/jwt/jwt.ts",
+            "symbol": "jwt,unauthorizedResponse",
+            "role": "JWT middleware.",
+            "line_range": [
+              1,
+              190
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/jwt/jwa.ts",
+            "symbol": "AlgorithmTypes,SignatureAlgorithm",
+            "role": "JWA contract.",
+            "line_range": [
+              1,
+              45
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/jwt/jwa.test.ts",
+            "symbol": "algorithm tests",
+            "role": "JWA tests.",
+            "line_range": [
+              1,
+              110
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/utils/jwt/jwt.ts",
+            "symbol": "sign,verify,verifyWithJwks,decode",
+            "role": "JWT core.",
+            "line_range": [
+              1,
+              280
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/jwt/jwt.test.ts",
+            "symbol": "JWT tests",
+            "role": "JWT tests.",
+            "line_range": [
+              1,
+              1500
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/utils/crypto.ts",
+            "symbol": "sha256,sha1,md5,createHash",
+            "role": "Hash primitives.",
+            "line_range": [
+              1,
+              70
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/crypto.test.ts",
+            "symbol": "crypto tests",
+            "role": "Hash tests.",
+            "line_range": [
+              1,
+              45
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/utils/encode.ts",
+            "symbol": "encodeBase64,decodeBase64,encodeBase64Url,decodeBase64Url",
+            "role": "Encoding primitives.",
+            "line_range": [
+              1,
+              35
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/encode.test.ts",
+            "symbol": "base64 tests",
+            "role": "Encoding tests.",
+            "line_range": [
+              1,
+              60
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/utils/ipaddr.ts",
+            "symbol": "convertIPv4ToBinary,convertIPv6ToBinary,convertIPv6BinaryToString",
+            "role": "IP parser.",
+            "line_range": [
+              1,
+              380
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/ipaddr.test.ts",
+            "symbol": "IP tests",
+            "role": "IP parser tests.",
+            "line_range": [
+              1,
+              150
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/middleware/ip-restriction/index.ts",
+            "symbol": "ipRestriction,buildMatcher",
+            "role": "IP policy.",
+            "line_range": [
+              1,
+              290
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/middleware/ip-restriction/index.test.ts",
+            "symbol": "IP policy tests",
+            "role": "IP tests.",
+            "line_range": [
+              1,
+              220
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/http-exception.ts",
+            "symbol": "HTTPException",
+            "role": "Protection error boundary.",
+            "line_range": [
+              40,
+              75
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "JWKS rejects symmetric algorithms and requires matching alg/kid.",
+            "why": "Prevents algorithm confusion.",
+            "reference": "src/utils/jwt/jwt.ts"
+          },
+          {
+            "rule": "Mapped IPv4/IPv6 forms compare consistently.",
+            "why": "Address policy cannot be bypassed by spelling.",
+            "reference": "src/middleware/ip-restriction/index.ts"
+          },
+          {
+            "rule": "Invalid address input fails closed.",
+            "why": "Malformed identity is blocked.",
+            "reference": "src/middleware/ip-restriction/index.test.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Allowing HS algorithms in JWKS.",
+            "consequence": "Public keys can be misused as HMAC secrets.",
+            "reference": "src/utils/jwt/jwt.ts"
+          },
+          {
+            "risk": "Changing base64url alphabet/padding.",
+            "consequence": "Token verification and gateway payloads break.",
+            "reference": "src/utils/encode.ts"
+          }
+        ],
+        "entry_questions": [
+          "Does authentication, browser policy, or network protection change?",
+          "Are alg/kid, encoding, cookie, hash, and address rules preserved?"
+        ],
+        "validation": [
+          "bun run test -- src/middleware/jwt src/middleware/jwk src/middleware/ip-restriction src/utils/crypto.test.ts src/utils/encode.test.ts src/utils/ipaddr.test.ts src/utils/jwt",
+          "bun run test:deno"
+        ],
+        "spans_subtrees": [
+          "src/middleware/jwt",
+          "src/middleware/jwk",
+          "src/middleware/ip-restriction",
+          "src/utils/jwt",
+          "src/utils/crypto.ts",
+          "src/utils/encode.ts",
+          "src/utils/ipaddr.ts"
+        ],
+        "stability": "high",
+        "recurrence": "high",
+        "confidence": "high",
+        "last_updated": "2026-08-26T15:00:00.000Z"
+      },
+      {
+        "concern": "HTTP request parsing and content negotiation",
+        "one_line": "Parses Accept headers, form bodies, cookies, and binary data into bounded application inputs.",
+        "covers": "Accept negotiation, multipart/urlencoded bodies, nested/all options, cookie parsing/signing, and buffer conversion.",
+        "excludes": "Authentication policy, lifecycle orchestration, and client URL construction.",
+        "flows": [
+          {
+            "name": "negotiation",
+            "description": "Headers become ranked supported representations.",
+            "steps": [
+              {
+                "path": "src/utils/accept.ts",
+                "what_happens": "Parses media values and q parameters."
+              },
+              {
+                "path": "src/helper/accepts/accepts.ts",
+                "what_happens": "Ranks exact, subtype, and wildcard matches."
+              },
+              {
+                "path": "src/utils/accept.test.ts",
+                "what_happens": "Tests malformed and wildcard cases."
+              },
+              {
+                "path": "src/helper/accepts/accepts.test.ts",
+                "what_happens": "Tests helper matching."
+              }
+            ]
+          },
+          {
+            "name": "body and cookie conversion",
+            "description": "Request content becomes bounded values.",
+            "steps": [
+              {
+                "path": "src/utils/body.ts",
+                "what_happens": "Parses form bodies with cache/options."
+              },
+              {
+                "path": "src/utils/buffer.ts",
+                "what_happens": "Converts multipart and binary data."
+              },
+              {
+                "path": "src/utils/body.test.ts",
+                "what_happens": "Tests media types, files, nesting, and limits."
+              },
+              {
+                "path": "src/utils/cookie.ts",
+                "what_happens": "Parses and signs cookies."
+              },
+              {
+                "path": "src/utils/cookie.test.ts",
+                "what_happens": "Tests cookie edge cases."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/utils/accept.ts",
+            "symbol": "parseAccept",
+            "role": "Accept parser.",
+            "line_range": [
+              1,
+              270
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/accept.test.ts",
+            "symbol": "parseAccept tests",
+            "role": "Parser tests.",
+            "line_range": [
+              1,
+              220
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/helper/accepts/accepts.ts",
+            "symbol": "accepts,defaultMatch",
+            "role": "Negotiation helper.",
+            "line_range": [
+              1,
+              110
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/helper/accepts/accepts.test.ts",
+            "symbol": "accepts tests",
+            "role": "Matching tests.",
+            "line_range": [
+              1,
+              260
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/utils/body.ts",
+            "symbol": "parseBody",
+            "role": "Form parser.",
+            "line_range": [
+              1,
+              300
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/body.test.ts",
+            "symbol": "body tests",
+            "role": "Body tests.",
+            "line_range": [
+              1,
+              500
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/utils/cookie.ts",
+            "symbol": "parse,serialize",
+            "role": "Cookie contract.",
+            "line_range": [
+              1,
+              280
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/cookie.test.ts",
+            "symbol": "cookie tests",
+            "role": "Cookie tests.",
+            "line_range": [
+              1,
+              400
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "Malformed Accept entries do not swallow later values.",
+            "why": "Later candidates remain available.",
+            "reference": "src/utils/accept.ts"
+          },
+          {
+            "rule": "Body cache is reused.",
+            "why": "Request streams are one-shot.",
+            "reference": "src/utils/body.ts"
+          },
+          {
+            "rule": "Cookie duplicates are first-wins.",
+            "why": "Prevents override hazards.",
+            "reference": "src/utils/cookie.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Changing q sorting or body cache.",
+            "consequence": "Negotiation or later consumers break.",
+            "reference": "src/helper/accepts/accepts.ts"
+          }
+        ],
+        "entry_questions": [
+          "Which content type and options apply?",
+          "Is the body cached and are cookie rules preserved?"
+        ],
+        "validation": [
+          "bun run test -- src/utils/accept.test.ts src/helper/accepts/accepts.test.ts src/utils/body.test.ts src/utils/cookie.test.ts"
+        ],
+        "spans_subtrees": [
+          "src/utils/accept.ts",
+          "src/helper/accepts",
+          "src/utils/body.ts",
+          "src/utils/buffer.ts",
+          "src/utils/cookie.ts"
+        ],
+        "stability": "high",
+        "recurrence": "high",
+        "confidence": "high",
+        "last_updated": "2026-08-26T14:00:00.000Z"
+      },
+      {
+        "concern": "JSX rendering and DOM runtime",
+        "one_line": "Turns JSX children/components into escaped server output or live DOM nodes while preserving context, suspense, metadata, updates, and streaming.",
+        "covers": "Common/DOM rendering, CSS insertion, JSX runtimes, server compatibility, Suspense/ErrorBoundary, SSG JSX, and streaming tests.",
+        "excludes": "HTTP lifecycle, client RPC, and platform event conversion.",
+        "flows": [
+          {
+            "name": "server and stream rendering",
+            "description": "JSX is escaped, resolved, and streamed.",
+            "steps": [
+              {
+                "path": "src/jsx/jsx-runtime.ts",
+                "what_happens": "Builds escaped server attributes."
+              },
+              {
+                "path": "src/jsx/dom/jsx-runtime.ts",
+                "what_happens": "Exports DOM runtime entry points."
+              },
+              {
+                "path": "src/jsx/components.ts",
+                "what_happens": "Resolves async children and boundaries."
+              },
+              {
+                "path": "src/jsx/streaming.ts",
+                "what_happens": "Produces a ReadableStream."
+              },
+              {
+                "path": "src/jsx/streaming.test.tsx",
+                "what_happens": "Tests async, suspense, callbacks, and errors."
+              },
+              {
+                "path": "src/jsx/jsx-runtime.test.tsx",
+                "what_happens": "Tests attributes, escaping, and nullish children."
+              },
+              {
+                "path": "src/jsx/dom/server.ts",
+                "what_happens": "Provides renderToString/readable-stream compatibility."
+              },
+              {
+                "path": "src/jsx/dom/server.test.tsx",
+                "what_happens": "Tests sync/stream output and async errors."
+              }
+            ]
+          },
+          {
+            "name": "DOM resources and CSS",
+            "description": "DOM components manage nodes, metadata, styles, and cleanup.",
+            "steps": [
+              {
+                "path": "src/jsx/dom/components.ts",
+                "what_happens": "Manages refs, metadata, boundaries, and suspense."
+              },
+              {
+                "path": "src/jsx/dom/css.ts",
+                "what_happens": "Creates Style and inserts CSS rules."
+              },
+              {
+                "path": "src/jsx/dom/css.test.tsx",
+                "what_happens": "Tests Style, nonce, slugs, and rules."
+              },
+              {
+                "path": "src/jsx/dom/components.test.tsx",
+                "what_happens": "Tests DOM metadata lifecycle."
+              }
+            ]
+          },
+          {
+            "name": "context",
+            "description": "Providers isolate values across render trees.",
+            "steps": [
+              {
+                "path": "src/jsx/context.ts",
+                "what_happens": "Stores render-scoped values."
+              },
+              {
+                "path": "src/jsx/dom/context.ts",
+                "what_happens": "Pushes/pops DOM provider sentinels."
+              },
+              {
+                "path": "src/jsx/dom/context.test.tsx",
+                "what_happens": "Tests nested and suspense context."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/jsx/jsx-runtime.ts",
+            "symbol": "jsxAttr",
+            "role": "Server runtime.",
+            "line_range": [
+              1,
+              55
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/jsx/jsx-runtime.test.tsx",
+            "symbol": "jsx-runtime tests",
+            "role": "Server runtime tests.",
+            "line_range": [
+              1,
+              130
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/jsx/dom/jsx-runtime.ts",
+            "symbol": "jsx,jsxs,Fragment",
+            "role": "DOM runtime.",
+            "line_range": [
+              1,
+              15
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/jsx/dom/server.ts",
+            "symbol": "renderToString,renderToReadableStream",
+            "role": "Server compatibility.",
+            "line_range": [
+              1,
+              70
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/jsx/dom/server.test.tsx",
+            "symbol": "server tests",
+            "role": "Compatibility tests.",
+            "line_range": [
+              1,
+              160
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/jsx/streaming.ts",
+            "symbol": "renderToReadableStream,Suspense",
+            "role": "JSX stream.",
+            "line_range": [
+              1,
+              230
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/jsx/streaming.test.tsx",
+            "symbol": "stream tests",
+            "role": "JSX stream tests.",
+            "line_range": [
+              1,
+              940
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/jsx/dom/css.ts",
+            "symbol": "createCssContext,createCssJsxDomObjects",
+            "role": "DOM CSS.",
+            "line_range": [
+              1,
+              270
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/jsx/dom/css.test.tsx",
+            "symbol": "CSS tests",
+            "role": "CSS tests.",
+            "line_range": [
+              1,
+              140
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/jsx/components.ts",
+            "symbol": "childrenToString,ErrorBoundary",
+            "role": "Components.",
+            "line_range": [
+              1,
+              220
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/jsx/dom/components.ts",
+            "symbol": "ErrorBoundary,Suspense",
+            "role": "DOM components.",
+            "line_range": [
+              1,
+              440
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/jsx/context.ts",
+            "symbol": "createContext,useContext",
+            "role": "Context.",
+            "line_range": [
+              1,
+              260
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/jsx/dom/context.ts",
+            "symbol": "createContextProviderFunction",
+            "role": "DOM context.",
+            "line_range": [
+              1,
+              100
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/helper/ssg/plugins.ts",
+            "symbol": "redirectPlugin,defaultPlugin",
+            "role": "SSG JSX/HTML integration.",
+            "line_range": [
+              1,
+              90
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/helper/ssg/plugins.test.tsx",
+            "symbol": "plugin tests",
+            "role": "SSG JSX tests.",
+            "line_range": [
+              1,
+              260
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/helper/ssg/ssg.test.tsx",
+            "symbol": "toSSG JSX tests",
+            "role": "SSG JSX tests.",
+            "line_range": [
+              1,
+              1200
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "Nullish and boolean children render empty.",
+            "why": "JSX must not leak literal values.",
+            "reference": "src/jsx/components.ts"
+          },
+          {
+            "rule": "DOM CSS rules insert once per class/style.",
+            "why": "Repeated renders must not duplicate rules.",
+            "reference": "src/jsx/dom/css.ts"
+          },
+          {
+            "rule": "renderToString rejects unresolved async components.",
+            "why": "Its completion contract is synchronous.",
+            "reference": "src/jsx/dom/server.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Changing async child context capture.",
+            "consequence": "Suspense/ErrorBoundary output changes.",
+            "reference": "src/jsx/components.ts"
+          },
+          {
+            "risk": "Changing metadata precedence or CSS insertion.",
+            "consequence": "Head/resource/style behavior changes.",
+            "reference": "src/jsx/dom/components.ts"
+          }
+        ],
+        "entry_questions": [
+          "Common, DOM, server, or stream renderer?",
+          "Can children suspend/throw and does metadata/style need cleanup?"
+        ],
+        "validation": [
+          "bun run test -- src/jsx/children.test.ts src/jsx/components.test.tsx src/jsx/jsx-runtime.test.tsx src/jsx/streaming.test.tsx",
+          "bun run test -- src/jsx/dom",
+          "bun run test -- src/helper/ssg/plugins.test.tsx src/helper/ssg/ssg.test.tsx"
+        ],
+        "spans_subtrees": [
+          "src/jsx",
+          "src/jsx/dom",
+          "src/jsx/intrinsic-element",
+          "src/helper/ssg"
+        ],
+        "stability": "high",
+        "recurrence": "high",
+        "confidence": "high",
+        "last_updated": "2026-08-26T15:00:00.000Z"
+      },
+      {
+        "concern": "typed client RPC and client request construction",
+        "one_line": "Maps typed Hono routes onto proxy HTTP/WebSocket clients and compatible DOM roots.",
+        "covers": "hc proxy traversal, request serialization, typed responses, createRoot/hydrateRoot, and type fixtures.",
+        "excludes": "Server routing, server JSX rendering, and platform event conversion.",
+        "flows": [
+          {
+            "name": "HTTP client",
+            "description": "Typed proxy calls become Fetch requests.",
+            "steps": [
+              {
+                "path": "src/client/client.ts",
+                "what_happens": "hc resolves proxy operations and ClientRequestImpl serializes requests."
+              },
+              {
+                "path": "src/client/client.test.ts",
+                "what_happens": "Tests serialization, responses, and inference."
+              }
+            ]
+          },
+          {
+            "name": "DOM root",
+            "description": "Roots delegate to the DOM renderer.",
+            "steps": [
+              {
+                "path": "src/jsx/dom/client.ts",
+                "what_happens": "createRoot/hydrateRoot render and unmount."
+              },
+              {
+                "path": "src/jsx/dom/client.test.tsx",
+                "what_happens": "Tests rerender, hydration, cleanup, and terminal unmount."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/client/client.ts",
+            "symbol": "hc,ClientRequestImpl",
+            "role": "Typed client core.",
+            "line_range": [
+              1,
+              280
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/client/client.test.ts",
+            "symbol": "client tests",
+            "role": "Client tests.",
+            "line_range": [
+              1,
+              2200
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/jsx/dom/client.ts",
+            "symbol": "createRoot,hydrateRoot",
+            "role": "DOM root API.",
+            "line_range": [
+              1,
+              110
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/jsx/dom/client.test.tsx",
+            "symbol": "root tests",
+            "role": "Root tests.",
+            "line_range": [
+              1,
+              150
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "perf-measures/type-check/client.ts",
+            "symbol": "hc<typeof app>",
+            "role": "Type fixture.",
+            "line_range": [
+              1,
+              20
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "GET/HEAD requests have no body.",
+            "why": "Fetch semantics reject those bodies.",
+            "reference": "src/client/client.ts"
+          },
+          {
+            "rule": "Unmounted roots reject render.",
+            "why": "Unmount is terminal.",
+            "reference": "src/jsx/dom/client.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Changing proxy path replacement.",
+            "consequence": "Calls target wrong URLs.",
+            "reference": "src/client/client.ts"
+          }
+        ],
+        "entry_questions": [
+          "Is this HTTP proxy or DOM root work?",
+          "Does URL/body/header inference change?"
+        ],
+        "validation": [
+          "bun run test -- src/client/client.test.ts src/jsx/dom/client.test.tsx"
+        ],
+        "spans_subtrees": [
+          "src/client",
+          "src/jsx/dom/client.ts",
+          "perf-measures/type-check"
+        ],
+        "stability": "high",
+        "recurrence": "high",
+        "confidence": "high",
+        "last_updated": "2026-08-26T14:00:00.000Z"
+      },
+      {
+        "concern": "bounded asynchronous concurrency",
+        "one_line": "Limits concurrent async work with optional release intervals while preserving result association.",
+        "covers": "Pool contract, finite/Infinity modes, queueing, markers, intervals, and tests.",
+        "excludes": "Request lifecycle and platform scheduling.",
+        "flows": [
+          {
+            "name": "pool scheduling",
+            "description": "Jobs run or wait for capacity and resolve in submission order.",
+            "steps": [
+              {
+                "path": "src/utils/concurrent.ts",
+                "what_happens": "Creates the limiter and queues work."
+              },
+              {
+                "path": "src/utils/concurrent.test.ts",
+                "what_happens": "Tests concurrency, counts, order, and intervals."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/utils/concurrent.ts",
+            "symbol": "Pool,createPool",
+            "role": "Limiter.",
+            "line_range": [
+              1,
+              80
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/concurrent.test.ts",
+            "symbol": "concurrent tests",
+            "role": "Limiter tests.",
+            "line_range": [
+              1,
+              100
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "Finite active work never exceeds configured concurrency.",
+            "why": "Markers gate execution.",
+            "reference": "src/utils/concurrent.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Changing delayed marker deletion.",
+            "consequence": "Spacing changes.",
+            "reference": "src/utils/concurrent.ts"
+          }
+        ],
+        "entry_questions": [
+          "Finite or Infinity?",
+          "Does interval hold capacity?"
+        ],
+        "validation": [
+          "bun run test -- src/utils/concurrent.test.ts"
+        ],
+        "spans_subtrees": [
+          "src/utils/concurrent.ts"
+        ],
+        "stability": "high",
+        "recurrence": "medium",
+        "confidence": "high",
+        "last_updated": "2026-08-26T14:00:00.000Z"
+      },
+      {
+        "concern": "terminal color capability and runtime portability",
+        "one_line": "Determines terminal color capability across Node/Bun, Deno, and Cloudflare without runtime-only static imports.",
+        "covers": "NO_COLOR, Deno.noColor, Cloudflare probing, and Bun/esbuild compatibility.",
+        "excludes": "Logger formatting and request adapters.",
+        "flows": [
+          {
+            "name": "capability detection",
+            "description": "Runtime flags determine color behavior.",
+            "steps": [
+              {
+                "path": "src/utils/color.ts",
+                "what_happens": "Checks runtime globals and no-color flags."
+              },
+              {
+                "path": "src/utils/color.test.ts",
+                "what_happens": "Tests flags and esbuild."
+              },
+              {
+                "path": "runtime-tests/bun/color.test.ts",
+                "what_happens": "Tests Bun bundling."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/utils/color.ts",
+            "symbol": "getColorEnabled,getColorEnabledAsync",
+            "role": "Detection.",
+            "line_range": [
+              1,
+              80
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/color.test.ts",
+            "symbol": "color tests",
+            "role": "Detection tests.",
+            "line_range": [
+              1,
+              60
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "runtime-tests/bun/color.test.ts",
+            "symbol": "Bun.build",
+            "role": "Compatibility test.",
+            "line_range": [
+              1,
+              30
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "NO_COLOR disables color.",
+            "why": "Convention is authoritative.",
+            "reference": "src/utils/color.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Static runtime probes.",
+            "consequence": "Bundlers fail.",
+            "reference": "src/utils/color.ts"
+          }
+        ],
+        "entry_questions": [
+          "Which runtime flag applies?",
+          "Will bundling remain portable?"
+        ],
+        "validation": [
+          "bun run test -- src/utils/color.test.ts",
+          "bun test runtime-tests/bun/color.test.ts"
+        ],
+        "spans_subtrees": [
+          "src/utils/color.ts",
+          "runtime-tests/bun/color.test.ts"
+        ],
+        "stability": "high",
+        "recurrence": "medium",
+        "confidence": "high",
+        "last_updated": "2026-08-26T14:00:00.000Z"
+      },
+      {
+        "concern": "package build and distribution orchestration",
+        "one_line": "Discovers source entries, emits ESM/CJS/declarations, validates exports, and processes publication artifacts.",
+        "covers": "Bun build, esbuild, declarations, package/JSR exports, watch mode, and dist packaging.",
+        "excludes": "Runtime behavior and adapter implementation.",
+        "flows": [
+          {
+            "name": "library build",
+            "description": "Scripts invoke the orchestrator and publish aligned artifacts.",
+            "steps": [
+              {
+                "path": "package.json",
+                "what_happens": "Build removes dist, invokes Bun build, copies CJS metadata, and runs publint."
+              },
+              {
+                "path": "build/build.ts",
+                "what_happens": "Discovers entries and emits ESM/CJS/declarations."
+              },
+              {
+                "path": "package.json",
+                "what_happens": "Exports generated artifacts."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "build/build.ts",
+            "symbol": "entryPoints,esmConfig,cjsConfig,runBuild",
+            "role": "Build core.",
+            "line_range": [
+              1,
+              150
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "package.json",
+            "symbol": "build,watch,exports",
+            "role": "Package contract.",
+            "line_range": [
+              1,
+              80
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "Tests/internal files are excluded from public entries.",
+            "why": "Build curates API.",
+            "reference": "build/build.ts"
+          },
+          {
+            "rule": "Formats share entries.",
+            "why": "Published outputs align.",
+            "reference": "build/build.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Adding entries without exports/ignore alignment.",
+            "consequence": "API diverges.",
+            "reference": "build/build.ts"
+          }
+        ],
+        "entry_questions": [
+          "Public or internal entry?",
+          "Do package and JSR exports align?"
+        ],
+        "validation": [
+          "bun run build",
+          "bun run lint -- build"
+        ],
+        "spans_subtrees": [
+          "build",
+          "package.json",
+          "src"
+        ],
+        "stability": "high",
+        "recurrence": "high",
+        "confidence": "high",
+        "last_updated": "2026-08-26T14:00:00.000Z"
+      },
+      {
+        "concern": "static site generation and output safety",
+        "one_line": "Turns Hono responses into deterministic static files through hooks, plugins, bounded concurrency, and guarded writes.",
+        "covers": "SSG route discovery, params, hooks, plugins, MIME extensions, filesystem writes, failures, and traversal defenses.",
+        "excludes": "Runtime filesystem adapters, general JSX rendering, and core dispatch.",
+        "flows": [
+          {
+            "name": "route to file",
+            "description": "Routes become transformed content and files.",
+            "steps": [
+              {
+                "path": "src/helper/ssg/ssg.ts",
+                "what_happens": "Discovers routes, expands params, fetches content, and saves files."
+              },
+              {
+                "path": "src/helper/ssg/plugins.ts",
+                "what_happens": "Filters statuses and converts redirects to escaped HTML."
+              },
+              {
+                "path": "src/utils/filepath.ts",
+                "what_happens": "Normalizes output paths and rejects traversal."
+              },
+              {
+                "path": "src/helper/ssg/ssg.test.tsx",
+                "what_happens": "Tests generated content, paths, errors, hooks, and traversal."
+              },
+              {
+                "path": "src/helper/ssg/plugins.test.tsx",
+                "what_happens": "Tests plugin ordering, redirects, and escaping."
+              },
+              {
+                "path": "src/utils/filepath.test.ts",
+                "what_happens": "Authoritative tests cover default documents, separators, roots, and traversal."
+              }
+            ]
+          },
+          {
+            "name": "adapter filesystem",
+            "description": "Runtime filesystem modules satisfy the shared contract.",
+            "steps": [
+              {
+                "path": "src/adapter/bun/ssg.ts",
+                "what_happens": "Provides Bun writes and mkdir."
+              },
+              {
+                "path": "src/helper/ssg/ssg.ts",
+                "what_happens": "Consumes FileSystemModule."
+              },
+              {
+                "path": "src/adapter/deno/ssg.ts",
+                "what_happens": "Provides Deno writes and mkdir."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/helper/ssg/ssg.ts",
+            "symbol": "FileSystemModule,fetchRoutesContent,saveContentToFile,toSSG",
+            "role": "SSG core.",
+            "line_range": [
+              1,
+              470
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/helper/ssg/ssg.test.tsx",
+            "symbol": "toSSG tests",
+            "role": "SSG tests.",
+            "line_range": [
+              1,
+              1200
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/helper/ssg/plugins.ts",
+            "symbol": "defaultPlugin,redirectPlugin",
+            "role": "Plugins.",
+            "line_range": [
+              1,
+              90
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/helper/ssg/plugins.test.tsx",
+            "symbol": "plugin tests",
+            "role": "Plugin tests.",
+            "line_range": [
+              1,
+              260
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/utils/filepath.ts",
+            "symbol": "getFilePath,getFilePathWithoutDefaultDocument",
+            "role": "Path safety.",
+            "line_range": [
+              1,
+              70
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/filepath.test.ts",
+            "symbol": "filepath tests",
+            "role": "Path safety tests.",
+            "line_range": [
+              1,
+              75
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "Generated parameters cannot escape output root.",
+            "why": "Filesystem writes must be contained.",
+            "reference": "src/helper/ssg/ssg.ts"
+          },
+          {
+            "rule": "Plugin order controls redirect materialization.",
+            "why": "defaultPlugin skips non-200 responses.",
+            "reference": "src/helper/ssg/plugins.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Putting defaultPlugin before redirectPlugin.",
+            "consequence": "Redirect pages are skipped.",
+            "reference": "src/helper/ssg/plugins.ts"
+          },
+          {
+            "risk": "Allowing parent/drive-relative parameters.",
+            "consequence": "Writes escape output.",
+            "reference": "src/helper/ssg/ssg.test.tsx"
+          }
+        ],
+        "entry_questions": [
+          "Which routes need ssgParams?",
+          "What plugin order and extension map apply?",
+          "Does every path stay within root?"
+        ],
+        "validation": [
+          "bun run test -- src/helper/ssg/plugins.test.tsx src/helper/ssg/ssg.test.tsx src/utils/filepath.test.ts"
+        ],
+        "spans_subtrees": [
+          "src/helper/ssg",
+          "src/utils/filepath.ts",
+          "src/adapter/bun/ssg.ts",
+          "src/adapter/deno/ssg.ts"
+        ],
+        "stability": "high",
+        "recurrence": "high",
+        "confidence": "high",
+        "last_updated": "2026-08-26T15:00:00.000Z"
+      },
+      {
+        "concern": "streaming responses and server-sent events",
+        "one_line": "Produces Fetch streams, text streams, and SSE frames while preserving abort, errors, JSX data, and completion.",
+        "covers": "TransformStream streaming, streamText headers, SSE framing/validation, old Bun abort fallback, and JSX streaming.",
+        "excludes": "Static generation, core JSX semantics, and platform event conversion.",
+        "flows": [
+          {
+            "name": "stream lifecycle",
+            "description": "Callbacks write chunks and terminate streams.",
+            "steps": [
+              {
+                "path": "src/helper/streaming/stream.ts",
+                "what_happens": "Creates StreamingApi, bridges abort, runs callback, and closes."
+              },
+              {
+                "path": "src/helper/streaming/text.ts",
+                "what_happens": "Adds text, nosniff, and chunked headers."
+              },
+              {
+                "path": "src/helper/streaming/stream.test.ts",
+                "what_happens": "Tests chunks, cancellation, abort, pipes, and errors."
+              },
+              {
+                "path": "src/helper/streaming/text.test.ts",
+                "what_happens": "Tests headers and ordered chunks."
+              }
+            ]
+          },
+          {
+            "name": "SSE and JSX",
+            "description": "Data is resolved, framed, validated, and delivered.",
+            "steps": [
+              {
+                "path": "src/helper/streaming/sse.ts",
+                "what_happens": "Resolves data, splits lines, validates event/id, writes frames, and sets headers."
+              },
+              {
+                "path": "src/jsx/streaming.ts",
+                "what_happens": "Resolves JSX stream content and callback phases."
+              },
+              {
+                "path": "src/helper/streaming/sse.test.tsx",
+                "what_happens": "Tests fields, retry, errors, abort, Promise data, JSX, and boundaries."
+              },
+              {
+                "path": "src/jsx/streaming.test.tsx",
+                "what_happens": "Tests JSX ordering, suspense, callbacks, and recovery."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/helper/streaming/stream.ts",
+            "symbol": "stream",
+            "role": "Generic stream.",
+            "line_range": [
+              1,
+              55
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/helper/streaming/stream.test.ts",
+            "symbol": "stream tests",
+            "role": "Stream tests.",
+            "line_range": [
+              1,
+              130
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/helper/streaming/text.ts",
+            "symbol": "streamText",
+            "role": "Text stream.",
+            "line_range": [
+              1,
+              30
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/helper/streaming/text.test.ts",
+            "symbol": "streamText tests",
+            "role": "Text tests.",
+            "line_range": [
+              1,
+              60
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/helper/streaming/sse.ts",
+            "symbol": "SSEStreamingApi,streamSSE",
+            "role": "SSE core.",
+            "line_range": [
+              1,
+              90
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/helper/streaming/sse.test.tsx",
+            "symbol": "streamSSE tests",
+            "role": "SSE tests.",
+            "line_range": [
+              1,
+              300
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/jsx/streaming.ts",
+            "symbol": "renderToReadableStream,Suspense",
+            "role": "JSX stream.",
+            "line_range": [
+              1,
+              230
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/jsx/streaming.test.tsx",
+            "symbol": "JSX stream tests",
+            "role": "JSX stream tests.",
+            "line_range": [
+              1,
+              940
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "Producers close or abort.",
+            "why": "Responses need terminal state.",
+            "reference": "src/helper/streaming/stream.ts"
+          },
+          {
+            "rule": "SSE event/id reject CR/LF.",
+            "why": "Prevents frame injection.",
+            "reference": "src/helper/streaming/sse.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Ignoring old Bun cancellation.",
+            "consequence": "Work continues after disconnect.",
+            "reference": "src/helper/streaming/stream.ts"
+          },
+          {
+            "risk": "Changing callback phases or chunk ordering.",
+            "consequence": "Output is incomplete or reordered.",
+            "reference": "src/jsx/streaming.ts"
+          }
+        ],
+        "entry_questions": [
+          "Generic, text, SSE, or JSX stream?",
+          "Are abort, framing, headers, and callback phases preserved?"
+        ],
+        "validation": [
+          "bun run test -- src/helper/streaming src/jsx/streaming.test.tsx",
+          "bun run test:deno"
+        ],
+        "spans_subtrees": [
+          "src/helper/streaming",
+          "src/jsx/streaming.ts"
+        ],
+        "stability": "high",
+        "recurrence": "high",
+        "confidence": "high",
+        "last_updated": "2026-08-26T15:00:00.000Z"
+      },
+      {
+        "concern": "HTTP entity-tag validation and response caching",
+        "one_line": "Computes bounded response digests and applies conditional ETag behavior without consuming response streams.",
+        "covers": "Chunked digest, ETag generation/matching, retained 304 headers, empty/null bodies, and QUERY cache digests.",
+        "excludes": "Generic hashing, request parsing, and platform conversion.",
+        "flows": [
+          {
+            "name": "digest to ETag",
+            "description": "Response bytes become a conditional response.",
+            "steps": [
+              {
+                "path": "src/middleware/etag/digest.ts",
+                "what_happens": "Accumulates 256 KiB chunks, handles reused buffers, and returns hex digest."
+              },
+              {
+                "path": "src/middleware/etag/index.ts",
+                "what_happens": "Clones eligible bodies, generates/matches ETags, and retains headers."
+              },
+              {
+                "path": "src/middleware/etag/digest.test.ts",
+                "what_happens": "Tests reused stream buffers."
+              },
+              {
+                "path": "src/middleware/etag/index.test.ts",
+                "what_happens": "Tests algorithms, binary/stream bodies, boundaries, weak tags, and conditionals."
+              }
+            ]
+          },
+          {
+            "name": "QUERY cache key",
+            "description": "Bounded request representation data becomes a cache digest.",
+            "steps": [
+              {
+                "path": "src/middleware/cache/index.ts",
+                "what_happens": "Hashes metadata and bounded QUERY body material."
+              },
+              {
+                "path": "src/middleware/cache/index.test.ts",
+                "what_happens": "Tests cache, vary, limits, and wait behavior."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/middleware/etag/digest.ts",
+            "symbol": "generateDigest",
+            "role": "Digest core.",
+            "line_range": [
+              1,
+              90
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/middleware/etag/digest.test.ts",
+            "symbol": "generateDigest tests",
+            "role": "Digest tests.",
+            "line_range": [
+              1,
+              25
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/middleware/etag/index.ts",
+            "symbol": "etag,etagMatches",
+            "role": "ETag middleware.",
+            "line_range": [
+              1,
+              145
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/middleware/etag/index.test.ts",
+            "symbol": "etag tests",
+            "role": "ETag tests.",
+            "line_range": [
+              1,
+              500
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/middleware/cache/index.ts",
+            "symbol": "cache,createQueryDigest",
+            "role": "Cache digest consumer.",
+            "line_range": [
+              1,
+              325
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/middleware/cache/index.test.ts",
+            "symbol": "cache tests",
+            "role": "Cache tests.",
+            "line_range": [
+              1,
+              1200
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "Digest is independent of chunk boundaries.",
+            "why": "Tags identify bytes, not chunks.",
+            "reference": "src/middleware/etag/digest.ts"
+          },
+          {
+            "rule": "ETag reads a clone and skips empty/null/non-success bodies.",
+            "why": "Original response lifecycle remains intact.",
+            "reference": "src/middleware/etag/index.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Dropping pending bytes or mutating reused chunks.",
+            "consequence": "Tags vary by runtime buffering.",
+            "reference": "src/middleware/etag/digest.ts"
+          },
+          {
+            "risk": "Reading original body.",
+            "consequence": "Clients receive consumed bodies.",
+            "reference": "src/middleware/etag/index.ts"
+          }
+        ],
+        "entry_questions": [
+          "Is body streamed, binary, empty, or null?",
+          "Are weak matching and cache bounds unchanged?"
+        ],
+        "validation": [
+          "bun run test -- src/middleware/etag/digest.test.ts src/middleware/etag/index.test.ts src/middleware/cache/index.test.ts"
+        ],
+        "spans_subtrees": [
+          "src/middleware/etag",
+          "src/middleware/cache"
+        ],
+        "stability": "high",
+        "recurrence": "high",
+        "confidence": "high",
+        "last_updated": "2026-08-26T15:00:00.000Z"
+      },
+      {
+        "concern": "cryptographic hashing and JOSE token enforcement",
+        "one_line": "Provides portable hashing and base64url/JOSE contracts used to sign, verify, and transport security-sensitive values.",
+        "covers": "SHA hashing, binary/base64 encoding, JWA families, JWT claims/signatures/JWKS, and middleware challenges.",
+        "excludes": "General request parsing, streaming, and package distribution.",
+        "flows": [
+          {
+            "name": "hash and encoding",
+            "description": "Typed values become deterministic digest or base64url output.",
+            "steps": [
+              {
+                "path": "src/utils/crypto.ts",
+                "what_happens": "Normalizes supported data and computes WebCrypto hex digests."
+              },
+              {
+                "path": "src/utils/crypto.test.ts",
+                "what_happens": "Tests SHA, Unicode, objects, buffers, and MD5 portability."
+              },
+              {
+                "path": "src/utils/encode.ts",
+                "what_happens": "Converts standard and URL-safe base64."
+              },
+              {
+                "path": "src/utils/encode.test.ts",
+                "what_happens": "Tests RFC and Unicode round trips."
+              }
+            ]
+          },
+          {
+            "name": "JOSE verification",
+            "description": "JWT material is encoded, algorithm checked, validated, verified, and surfaced as auth.",
+            "steps": [
+              {
+                "path": "src/utils/jwt/jwa.ts",
+                "what_happens": "Defines algorithm unions and enum."
+              },
+              {
+                "path": "src/utils/jwt/jwa.test.ts",
+                "what_happens": "Tests algorithm type contract."
+              },
+              {
+                "path": "src/utils/jwt/jwt.ts",
+                "what_happens": "Signs/decodes/verifies claims and JWKS."
+              },
+              {
+                "path": "src/utils/jwt/jwt.test.ts",
+                "what_happens": "Tests claims, signatures, JWKS, and confusion."
+              },
+              {
+                "path": "src/middleware/jwt/jwt.ts",
+                "what_happens": "Extracts tokens and emits escaped auth challenges."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/utils/crypto.ts",
+            "symbol": "sha256,sha1,md5,createHash",
+            "role": "Hash primitives.",
+            "line_range": [
+              1,
+              70
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/crypto.test.ts",
+            "symbol": "crypto tests",
+            "role": "Hash tests.",
+            "line_range": [
+              1,
+              45
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/utils/encode.ts",
+            "symbol": "encodeBase64,decodeBase64,encodeBase64Url,decodeBase64Url",
+            "role": "Encoding primitives.",
+            "line_range": [
+              1,
+              35
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/encode.test.ts",
+            "symbol": "base64 tests",
+            "role": "Encoding tests.",
+            "line_range": [
+              1,
+              60
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/utils/jwt/jwa.ts",
+            "symbol": "AlgorithmTypes,SignatureAlgorithm",
+            "role": "JWA contract.",
+            "line_range": [
+              1,
+              45
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/jwt/jwa.test.ts",
+            "symbol": "algorithm tests",
+            "role": "JWA tests.",
+            "line_range": [
+              1,
+              110
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/utils/jwt/jwt.ts",
+            "symbol": "sign,verify,verifyWithJwks,decode",
+            "role": "JWT core.",
+            "line_range": [
+              1,
+              280
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/jwt/jwt.test.ts",
+            "symbol": "JWT tests",
+            "role": "JWT tests.",
+            "line_range": [
+              1,
+              1500
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/middleware/jwt/jwt.ts",
+            "symbol": "jwt,unauthorizedResponse",
+            "role": "JWT boundary.",
+            "line_range": [
+              1,
+              190
+            ],
+            "centrality": "core"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "JWT header alg must match configured/allowed algorithms and JWKS rejects symmetric algorithms.",
+            "why": "Prevents algorithm confusion.",
+            "reference": "src/utils/jwt/jwt.ts"
+          },
+          {
+            "rule": "Base64url conversion preserves bytes.",
+            "why": "Signing input must round-trip.",
+            "reference": "src/utils/encode.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Using runtime-only Buffer APIs.",
+            "consequence": "Edge runtimes fail.",
+            "reference": "src/utils/crypto.ts"
+          },
+          {
+            "risk": "Allowing HS algorithms in JWKS.",
+            "consequence": "Public keys become HMAC secrets.",
+            "reference": "src/utils/jwt/jwt.ts"
+          }
+        ],
+        "entry_questions": [
+          "Which runtime provides WebCrypto?",
+          "Is value text, JSON, bytes, or JWT material?"
+        ],
+        "validation": [
+          "bun run test -- src/utils/crypto.test.ts src/utils/encode.test.ts src/utils/jwt/jwa.test.ts src/utils/jwt/jwt.test.ts src/middleware/jwt"
+        ],
+        "spans_subtrees": [
+          "src/utils/crypto.ts",
+          "src/utils/encode.ts",
+          "src/utils/jwt",
+          "src/middleware/jwt"
+        ],
+        "stability": "high",
+        "recurrence": "high",
+        "confidence": "high",
+        "last_updated": "2026-08-26T15:00:00.000Z"
+      },
+      {
+        "concern": "IP address parsing and network access restriction",
+        "one_line": "Canonicalizes IPv4/IPv6 addresses and applies static, CIDR, and callback allow/deny policy.",
+        "covers": "Address parsing, compressed/mapped forms, zones, binary round trips, and ipRestriction behavior.",
+        "excludes": "Generic parsing, authentication, and gateway conversion.",
+        "flows": [
+          {
+            "name": "canonicalization",
+            "description": "Remote addresses become canonical binary/string values.",
+            "steps": [
+              {
+                "path": "src/utils/ipaddr.ts",
+                "what_happens": "Classifies, validates, parses, and formats IPv4/IPv6."
+              },
+              {
+                "path": "src/utils/ipaddr.test.ts",
+                "what_happens": "Tests valid/invalid, mapped, zoned, compressed, and round-trip values."
+              }
+            ]
+          },
+          {
+            "name": "policy",
+            "description": "Canonical remote data is matched and blocked or passed.",
+            "steps": [
+              {
+                "path": "src/middleware/ip-restriction/index.ts",
+                "what_happens": "Builds static/CIDR/function matchers and fails closed."
+              },
+              {
+                "path": "src/middleware/ip-restriction/index.test.ts",
+                "what_happens": "Tests allow/deny, CIDR, invalid, mapped, and custom errors."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/utils/ipaddr.ts",
+            "symbol": "distinctRemoteAddr,convertIPv4ToBinary,convertIPv6ToBinary,convertIPv6BinaryToString",
+            "role": "Address core.",
+            "line_range": [
+              1,
+              380
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/ipaddr.test.ts",
+            "symbol": "IP tests",
+            "role": "Address tests.",
+            "line_range": [
+              1,
+              150
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/middleware/ip-restriction/index.ts",
+            "symbol": "ipRestriction,buildMatcher",
+            "role": "Policy middleware.",
+            "line_range": [
+              1,
+              290
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/middleware/ip-restriction/index.test.ts",
+            "symbol": "policy tests",
+            "role": "Policy tests.",
+            "line_range": [
+              1,
+              220
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "Mapped IPv4/IPv6 forms compare consistently.",
+            "why": "Equivalent addresses cannot bypass rules.",
+            "reference": "src/middleware/ip-restriction/index.ts"
+          },
+          {
+            "rule": "Invalid addresses block.",
+            "why": "Malformed identity fails closed.",
+            "reference": "src/middleware/ip-restriction/index.test.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Treating textual IPv6 variants as distinct.",
+            "consequence": "Lists are bypassed or misapplied.",
+            "reference": "src/utils/ipaddr.ts"
+          }
+        ],
+        "entry_questions": [
+          "Is address IPv4, IPv6, mapped, or zoned?",
+          "Are rules fail-closed?"
+        ],
+        "validation": [
+          "bun run test -- src/utils/ipaddr.test.ts src/middleware/ip-restriction/index.test.ts"
+        ],
+        "spans_subtrees": [
+          "src/utils/ipaddr.ts",
+          "src/middleware/ip-restriction"
+        ],
+        "stability": "high",
+        "recurrence": "medium",
+        "confidence": "high",
+        "last_updated": "2026-08-26T15:00:00.000Z"
+      },
+      {
+        "concern": "HTML escaping and callback resolution",
+        "one_line": "Marks trusted HTML, escapes untrusted text, and resolves synchronous/asynchronous callbacks across response and JSX rendering.",
+        "covers": "HtmlEscaped markers, string buffers, entity escaping, callback phases, and utility tests.",
+        "excludes": "DOM lifecycle, CSS insertion, request parsing, and platform adapters.",
+        "flows": [
+          {
+            "name": "escaped assembly",
+            "description": "Mixed strings and promises resolve while preserving trusted fragments.",
+            "steps": [
+              {
+                "path": "src/utils/html.ts",
+                "what_happens": "Defines escaped markers, escapes text, and resolves string buffers."
+              },
+              {
+                "path": "src/helper/html/index.ts",
+                "what_happens": "Builds HTML children with raw/escape helpers."
+              },
+              {
+                "path": "src/utils/html.test.ts",
+                "what_happens": "Tests markup and quote escaping."
+              }
+            ]
+          },
+          {
+            "name": "callback phases",
+            "description": "HTML callbacks resolve for response and streaming phases.",
+            "steps": [
+              {
+                "path": "src/utils/html.ts",
+                "what_happens": "Resolves callbacks recursively with context and phase."
+              },
+              {
+                "path": "src/context.ts",
+                "what_happens": "Resolves callbacks for HTML responses."
+              },
+              {
+                "path": "src/jsx/streaming.ts",
+                "what_happens": "Resolves BeforeStream/Stream callbacks."
+              }
+            ]
+          }
+        ],
+        "touchpoints": [
+          {
+            "path": "src/utils/html.ts",
+            "symbol": "raw,stringBufferToString,escapeToBuffer,resolveCallback",
+            "role": "HTML core.",
+            "line_range": [
+              1,
+              180
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/utils/html.test.ts",
+            "symbol": "HTML tests",
+            "role": "Escaping tests.",
+            "line_range": [
+              1,
+              20
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/helper/html/index.ts",
+            "symbol": "html,raw",
+            "role": "HTML assembly.",
+            "line_range": [
+              1,
+              70
+            ],
+            "centrality": "core"
+          },
+          {
+            "path": "src/context.ts",
+            "symbol": "html",
+            "role": "Response consumer.",
+            "line_range": [
+              730,
+              755
+            ],
+            "centrality": "supporting"
+          },
+          {
+            "path": "src/jsx/streaming.ts",
+            "symbol": "resolveCallback",
+            "role": "Stream consumer.",
+            "line_range": [
+              120,
+              190
+            ],
+            "centrality": "supporting"
+          }
+        ],
+        "invariants": [
+          {
+            "rule": "Unmarked text is escaped and HtmlEscaped values pass through.",
+            "why": "User content must not become markup.",
+            "reference": "src/utils/html.ts"
+          },
+          {
+            "rule": "Buffers resolve from the tail.",
+            "why": "Promise/string order is preserved.",
+            "reference": "src/utils/html.ts"
+          }
+        ],
+        "pitfalls": [
+          {
+            "risk": "Treating arbitrary String objects as trusted.",
+            "consequence": "Markup injection bypasses escaping.",
+            "reference": "src/utils/html.ts"
+          }
+        ],
+        "entry_questions": [
+          "Is value trusted raw HTML or text?",
+          "Which callback phase applies?"
+        ],
+        "validation": [
+          "bun run test -- src/utils/html.test.ts src/helper/html/index.test.ts"
+        ],
+        "spans_subtrees": [
+          "src/utils/html.ts",
+          "src/helper/html"
+        ],
+        "stability": "high",
+        "recurrence": "high",
+        "confidence": "high",
+        "last_updated": "2026-08-26T15:00:00.000Z"
+      }
+    ],
+    "not_concerns": [
+      {
+        "candidate": "src",
+        "why_rejected": "A top-level source directory, not a maintainer-recognizable specialty."
+      },
+      {
+        "candidate": "src/router",
+        "why_rejected": "A directory; matching is the specialty across contracts and implementations."
+      },
+      {
+        "candidate": "src/middleware",
+        "why_rejected": "A directory containing unrelated middleware concerns."
+      },
+      {
+        "candidate": "src/utils",
+        "why_rejected": "A shared implementation directory, not a specialty."
+      },
+      {
+        "candidate": "request path extraction",
+        "why_rejected": "A supporting URL helper, not an independent specialty."
+      },
+      {
+        "candidate": "docs/CONTRIBUTING.md",
+        "why_rejected": "Process documentation, not an implementation specialty."
+      }
+    ]
+  }
+}
